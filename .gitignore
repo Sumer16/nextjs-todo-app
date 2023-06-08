@@ -5,8 +5,11 @@
 /.pnp
 .pnp.js
 
-# Env
+# env
 .env
+
+# database
+dev.db*
 
 # testing
 /coverage
