@@ -6,6 +6,13 @@ function getTodos() {
   return prisma.todo.findMany()
 }
 
+// server function
+async function toggleTodo(id: string, complete: boolean) {
+  "use server" // lets NextJS know that this code should run on the server
+
+  await prisma.todo.update({ where: { id }, data: {  complete }})
+}
+
 export default async function Home() {
   const todos = await getTodos()
 
@@ -21,7 +28,7 @@ export default async function Home() {
     </header>
     <ul className="pl-4">
       {todos.map(todo => (
-        <TodoItem key={todo.id} {...todo} />
+        <TodoItem toggleTodo={toggleTodo} key={todo.id} {...todo} />
       ))}
     </ul>
   </>
